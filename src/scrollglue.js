@@ -119,8 +119,9 @@ if(typeof module === "object" && module.exports){
 
     var bottom = {
         isAttached: function(el){
-            // + 1 catches off by one errors in chrome
-            return el.scrollTop + el.clientHeight + 1 >= el.scrollHeight;
+            var offset = el.getAttribute('scroll-glue-offset') > 0 ? parseInt(el.getAttribute('scroll-glue-offset')) : 1;
+            // default 1 catches off by one errors in chrome
+            return el.scrollTop + el.clientHeight + offset >= el.scrollHeight;
         },
         scroll: function(el){
             el.scrollTop = el.scrollHeight;
@@ -129,7 +130,8 @@ if(typeof module === "object" && module.exports){
 
     var top = {
         isAttached: function(el){
-            return el.scrollTop <= 1;
+            var offset = el.getAttribute('scroll-glue-offset') > 0 ? parseInt(el.getAttribute('scroll-glue-offset')) : 1;
+            return el.scrollTop <= offset;
         },
         scroll: function(el){
             el.scrollTop = 0;
@@ -138,7 +140,8 @@ if(typeof module === "object" && module.exports){
 
     var right = {
         isAttached: function(el){
-            return el.scrollLeft + el.clientWidth + 1 >= el.scrollWidth;
+            var offset = el.getAttribute('scroll-glue-offset') > 0 ? parseInt(el.getAttribute('scroll-glue-offset')) : 1;
+            return el.scrollLeft + el.clientWidth + offset >= el.scrollWidth;
         },
         scroll: function(el){
             el.scrollLeft = el.scrollWidth;
@@ -147,7 +150,8 @@ if(typeof module === "object" && module.exports){
 
     var left = {
         isAttached: function(el){
-            return el.scrollLeft <= 1;
+            var offset = el.getAttribute('scroll-glue-offset') > 0 ? parseInt(el.getAttribute('scroll-glue-offset')) : 1;
+            return el.scrollLeft <= offset;
         },
         scroll: function(el){
             el.scrollLeft = 0;
